@@ -9,9 +9,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('GenWorkTable')
-    .setDescription('Projeto do Hackathon')
+    .setDescription('Projeto do Hackthaon')
     .setContact('Equipe 03', 'http://github.com/Equipe03-Generation', '')
-    .setVersion('1.0')
+    .setVersion('1.1')
     .addBearerAuth()
     .build()
     const document = SwaggerModule.createDocument(app, config)
