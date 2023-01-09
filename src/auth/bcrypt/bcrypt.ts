@@ -4,15 +4,15 @@ import * as bcrypt from 'bcrypt'
 @Injectable()
 export class Bcrypt {
 
-    async criptografarSenha(senha: string): Promise<string>{
+    async criptografarNumero(numeroGrupo: string): Promise<string>{
 
         let saltos: number = 10 
-        return await bcrypt.hash(senha, saltos);
+        return await bcrypt.hash(numeroGrupo, saltos);
     }
 
-    async compararSenha(senhaBanco: string, senhaDigitada: string): Promise<boolean>{
+    async compararNumero(numeroBanco: string, numeroDigitado: string): Promise<boolean>{
 
-        return bcrypt.compareSync(senhaDigitada, senhaBanco);
+        return bcrypt.compareSync(numeroDigitado, numeroBanco);
     }
 
 

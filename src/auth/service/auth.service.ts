@@ -1,36 +1,35 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { UsuarioService } from "../../usuario/service/usuario.service";
 import { Bcrypt } from "../bcrypt/bcrypt";
 
 @Injectable()
 export class AuthService {
     constructor(
-        private usuarioService: UsuarioService,
+        private grupoService: GrupoService,
         private jwtService: JwtService,
         private bcrypt: Bcrypt
     ) { }
 
-    async validarUsuario(username: string, password: string): Promise<any> {
-        const buscarUsuario = await this.usuarioService.findByUsuario(username)
+    async validarGrupo(numeroGrupo: string): Promise<any> {
+        const buscarGrupo = await this.grupoService.findByGrupo(numeroGrupo)
 
-        if (!buscarUsuario)
-            throw new HttpException('Usuario não encontrado!', HttpStatus.NOT_FOUND)
+        if (!buscarGrupo)
+            throw new HttpException('Grupo não encontrado!', HttpStatus.NOT_FOUND)
 
-        const match = await this.bcrypt.compararSenha(buscarUsuario.senha, password)
+        const match = await this.bcrypt.compararSenha(buscarGrupo.numeroGrupo, numeroGrupo)
 
-        if (buscarUsuario && match) {
-            const { senha, ...result } = buscarUsuario
+        if (buscarGrupo && match) {
+            const { numeroGrupo, ...result } = buscarGrupo
             return result;
         }
         return null;
     }
 
-    async login(usuarioLogin: any) {
-        const payload = {username: usuarioLogin.usuario, sub: "db_blogpessoal"}
+    async login(equipeLogin: any) {
+        const payload = {username: grupoLogin.grupo, sub: "db_genworktable"}
 
         return{
-            usuario: usuarioLogin.usuario,
+            grupo: grupoLogin.grupo,
             token: `Bearer ${this.jwtService.sign(payload)}`
         }
     }

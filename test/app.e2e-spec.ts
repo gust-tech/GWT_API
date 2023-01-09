@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 describe('Teste de Módulos Usuario e Auth (e2e)', () => {
 
   let token: any;
-  let usuarioId: any;
+  let grupoId: any;
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -18,7 +18,7 @@ describe('Teste de Módulos Usuario e Auth (e2e)', () => {
         port: 3306,
         username: 'root',
         password: 'root',
-        database: 'db_blogpessoal_test',
+        database: 'db_genworktable_test',
         autoLoadEntities: true,
         synchronize: true,
         logging: false,
@@ -36,9 +36,9 @@ describe('Teste de Módulos Usuario e Auth (e2e)', () => {
   })
 
 
-  it('01 - Deve Cadastrar Usuario', async () => {
+  it('01 - Deve Cadastrar Grupo', async () => {
     const resposta = await request(app.getHttpServer())
-      .post('/usuarios/cadastrar')
+      .post('/grupos/cadastrar')
       .send({
         nome: 'Root',
         usuario: 'root@root.com',
@@ -46,10 +46,10 @@ describe('Teste de Módulos Usuario e Auth (e2e)', () => {
         foto: ''
       });
     expect(201)
-    usuarioId = resposta.body.id
+    grupoId = resposta.body.id
   })
 
-  it('02 - Deve Autentificar Usuario (Login)', async () => {
+  it('02 - Deve Autentificar Grupo (Login)', async () => {
     const resposta = await request(app.getHttpServer())
       .post('/auth/logar')
       .send({
@@ -62,9 +62,9 @@ describe('Teste de Módulos Usuario e Auth (e2e)', () => {
 
   })
 
-  it('03 - Não Deve Duplicar o Usuario', async () => {
+  it('03 - Não Deve Duplicar o Grupo', async () => {
     return request(app.getHttpServer())
-      .post('/usuarios/cadastrar')
+      .post('/grupos/cadastrar')
       .send({
         nome: 'Root',
         usuario: 'root@root.com',
@@ -75,20 +75,20 @@ describe('Teste de Módulos Usuario e Auth (e2e)', () => {
       .expect(400)
   })
 
-  it('04 - Deve Listar todos os usuarios', async () => {
+  it('04 - Deve Listar Todos os Grupos', async () => {
     return request(app.getHttpServer())
-      .get('/usuarios/all')
+      .get('/grupos/all')
       .set('Authorization', `${token}`)
       .send({})
       .expect(200)
   })
 
-  it('05 - Deve Atualizar um Usuario', async () => {
+  it('05 - Deve Atualizar um Grupo', async () => {
     return request(app.getHttpServer())
       .put('/usuarios/atualizar')
       .set('Authorization', `${token}`)
       .send({
-        id: usuarioId,
+        id: grupoId,
         nome: 'Jorginho',
         usuario: 'root@root.com',
         senha: 'rootroot',
