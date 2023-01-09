@@ -26,7 +26,7 @@ export class GrupoService {
     async findAll(): Promise<Grupo[]> {
         return await this.grupoRepository.find({
             relations: {
-                
+                projeto: true
             }
         })
     }
@@ -37,7 +37,7 @@ export class GrupoService {
                 id
             },
             relations: {
-                
+                projeto: true
             }
         })
 

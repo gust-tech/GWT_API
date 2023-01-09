@@ -1,6 +1,8 @@
+import { Turma } from './../../turma/entities/turma.entity';
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Grupo } from '../../grupopi/entities/grupo.entity';
 
 @Entity({name: "tb_projeto"})
 export class Projeto {
@@ -33,4 +35,18 @@ export class Projeto {
     @Column({length: 255, nullable:false})
     @ApiProperty()
     grupoId: string 
+
+    @ApiProperty({ type: () => Turma})
+    @ManyToOne(() => Turma, (turma) => turma.projeto, {
+        onDelete: "CASCADE"
+    })
+    turma: Turma
+
+
+    @ApiProperty({type: () => Grupo})
+    @ManyToOne(() => Grupo, (grupo) => grupo.projeto, {
+        onDelete: "CASCADE"
+    })
+    grupo: Grupo
+    
 }

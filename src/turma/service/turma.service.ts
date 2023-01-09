@@ -13,7 +13,7 @@ export class TurmaService {
     async findAll(): Promise<Turma[]> {
         return await this.turmaRepository.find({
             relations: {
-                
+                projeto: true
             }
         })
     }
@@ -26,7 +26,7 @@ export class TurmaService {
                 id
             },
             relations: {
-                
+                projeto: true
             }
         })
 
