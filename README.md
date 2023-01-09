@@ -1,1 +1,3 @@
-em constante desenvolvimento, tais como os seres vivos durante a sua própria evolução.
+API em desenvolvimento
+Última atualização: 09/01
+Última versão: Inicial
