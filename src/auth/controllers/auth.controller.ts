@@ -12,7 +12,7 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
     @Post('/logar')
-    async login(@Body() user: EquipeLogin): Promise<any> {
+    async login(@Body() user: GrupoLogin): Promise<any> {
         return this.authService.login(user)
     }
 
