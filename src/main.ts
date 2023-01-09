@@ -9,7 +9,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('GenWorkTable')
-    .setDescription('Projeto do Hackthaon')
+    .setDescription('Projeto do Hackathon')
     .setContact('Equipe 03', 'http://github.com/Equipe03-Generation', '')
     .setVersion('1.0')
     .addBearerAuth()
