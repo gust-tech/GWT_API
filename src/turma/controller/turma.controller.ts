@@ -1,15 +1,12 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { HttpStatus } from "@nestjs/common/enums";
 import { ParseIntPipe } from "@nestjs/common/pipes";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger/dist";
-import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
+import { ApiTags } from "@nestjs/swagger/dist";
 import { Turma } from "../entities/turma.entity";
 import { TurmaService } from "../service/turma.service";
 
-@ApiTags('Turma')
-@UseGuards(JwtAuthGuard)
-@Controller('/turma')
-@ApiBearerAuth()
+@ApiTags('Turmas')
+@Controller('/turmas')
 export class TurmaController {
     constructor(private readonly turmaService: TurmaService) { }
 

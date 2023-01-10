@@ -3,15 +3,13 @@ import { Injectable } from "@nestjs/common";
 import { HttpStatus } from "@nestjs/common/enums";
 import { HttpException } from "@nestjs/common/exceptions";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ILike, Repository } from "typeorm";
-import { Bcrypt } from "../../auth/bcrypt/bcrypt";
+import { DeleteResult, ILike, Repository } from "typeorm";
 
 @Injectable()
 export class GrupoService {
     constructor(
         @InjectRepository(Grupo)
-        private grupoRepository: Repository<Grupo>,
-        private bcrypt: Bcrypt
+        private grupoRepository: Repository<Grupo>
     ) { }
 
     async findByGrupo(numeroGrupo: string): Promise<Grupo| undefined> {
@@ -48,30 +46,26 @@ export class GrupoService {
     }
 
     async create(grupo: Grupo): Promise<Grupo> {
-        let buscarGrupo = await this.findByGrupo(grupo.numeroGrupo)
-
-        if(!buscarGrupo){
-            grupo.numeroGrupo = await this.bcrypt.criptografarNumero(grupo.numeroGrupo)
-            return await this.grupoRepository.save(grupo)
-        }
-
-        throw new HttpException('O grupo já está cadastrado', HttpStatus.BAD_REQUEST)
-
+        return await this.grupoRepository.save(grupo)
     }
 
-    async update(grupo: Grupo): Promise<Grupo>{
-        let updateGrupo: Grupo = await this.findById(grupo.id)
-        let buscarGrupo = await this.findByGrupo(grupo.numeroGrupo)
+    async update(grupo: Grupo): Promise<Grupo> {
+        let buscarGrupo= await this.findById(grupo.id)
 
-        if(!updateGrupo)
+        if (!buscarGrupo || !buscarGrupo.id)
             throw new HttpException('Grupo não existe', HttpStatus.NOT_FOUND)
 
-        if(buscarGrupo && buscarGrupo.id !== grupo.id)
-            throw new HttpException('Grupo já cadastrado', HttpStatus.BAD_REQUEST)
-
-            grupo.numeroGrupo = await this.bcrypt.criptografarNumero(grupo.numeroGrupo)
-            return await this.grupoRepository.save(grupo)
+        return await this.grupoRepository.save(grupo)
     }
 
+
+    async delete(id: number): Promise<DeleteResult> {
+        let buscarGrupo = await this.findById(id)
+
+        if (!buscarGrupo)
+            throw new HttpException('Grupo não encontrado', HttpStatus.NOT_FOUND)
+
+        return await this.grupoRepository.delete(id)
+    }
 
 }

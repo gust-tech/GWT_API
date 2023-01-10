@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
 import { GrupoModule } from './grupopi/grupo.module';
 import { ProjetoModule } from './projeto/projeto.module';
 import { TurmaModule } from './turma/turma.module';
@@ -15,7 +14,7 @@ import { TurmaModule } from './turma/turma.module';
     //   port: 3306,
     //   username: 'root',
     //   password: 'root',
-    //   database: 'db_blogpessoal',
+    //   database: 'db_genworktable_teste',
     //   entities: [Postagem, Tema, Usuario],
     //   synchronize: true
     // }),
@@ -33,7 +32,6 @@ import { TurmaModule } from './turma/turma.module';
     }),
     ProjetoModule,
     TurmaModule,
-    AuthModule,
     GrupoModule
   ],
 

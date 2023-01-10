@@ -11,7 +11,7 @@ async function bootstrap() {
     .setTitle('GenWorkTable')
     .setDescription('Projeto do Hackthaon')
     .setContact('Equipe 03', 'http://github.com/Equipe03-Generation', '')
-    .setVersion('1.1')
+    .setVersion('1.3')
     .addBearerAuth()
     .build()
     const document = SwaggerModule.createDocument(app, config)

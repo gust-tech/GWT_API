@@ -1,15 +1,12 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { HttpStatus } from "@nestjs/common/enums";
 import { ParseIntPipe } from "@nestjs/common/pipes";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger/dist";
-import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
+import { ApiTags } from "@nestjs/swagger/dist";
 import { Projeto } from "../entities/projeto.entity";
 import { ProjetoService } from "../service/projeto.service";
 
-@ApiTags('Projeto')
-@UseGuards(JwtAuthGuard)
-@Controller('/projeto')
-@ApiBearerAuth()
+@ApiTags('Projetos')
+@Controller('/projetos')
 export class ProjetoController {
     constructor(private readonly projetoService: ProjetoService) { }
 
