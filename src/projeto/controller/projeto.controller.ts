@@ -10,7 +10,7 @@ import { ProjetoService } from "../service/projeto.service";
 export class ProjetoController {
     constructor(private readonly projetoService: ProjetoService) { }
 
-    @Get()
+    @Get('/all')
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Projeto[]> {
         return this.projetoService.findAll();
@@ -22,13 +22,13 @@ export class ProjetoController {
         return this.projetoService.findById(id)
     }
 
-    @Post()
+    @Post('/cadastrar')
     @HttpCode(HttpStatus.CREATED)
     create(@Body() projeto: Projeto): Promise<Projeto> {
         return this.projetoService.create(projeto)
     }
 
-    @Put()
+    @Put('/atualizar')
     @HttpCode(HttpStatus.OK)
     update(@Body() projeto: Projeto): Promise<Projeto> {
         return this.projetoService.update(projeto)

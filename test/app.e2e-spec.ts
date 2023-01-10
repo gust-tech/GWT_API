@@ -4,9 +4,8 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-describe('Teste de Módulos Usuario e Auth (e2e)', () => {
+describe('Teste de Módulos', () => {
 
-  let token: any;
   let grupoId: any;
   let app: INestApplication;
 
@@ -18,7 +17,7 @@ describe('Teste de Módulos Usuario e Auth (e2e)', () => {
         port: 3306,
         username: 'root',
         password: 'root',
-        database: 'db_genworktable_test',
+        database: 'db_genworktable_teste',
         autoLoadEntities: true,
         synchronize: true,
         logging: false,
@@ -35,68 +34,139 @@ describe('Teste de Módulos Usuario e Auth (e2e)', () => {
     await app.close()
   })
 
-
   it('01 - Deve Cadastrar Grupo', async () => {
     const resposta = await request(app.getHttpServer())
       .post('/grupos/cadastrar')
       .send({
-        nome: 'Root',
-        usuario: 'root@root.com',
-        senha: 'rootroot',
-        foto: ''
+        id: '1',
+        numeroGrupo: '1',
+        maisInfos: 'Rede Social',
+        turmaId: '1'
       });
     expect(201)
     grupoId = resposta.body.id
   })
 
-  it('02 - Deve Autentificar Grupo (Login)', async () => {
-    const resposta = await request(app.getHttpServer())
-      .post('/auth/logar')
-      .send({
-        usuario: 'root@root.com',
-        senha: 'rootroot',
-      })
-    expect(200)
-
-    token = resposta.body.token
-
-  })
-
-  it('03 - Não Deve Duplicar o Grupo', async () => {
+  it('02 - Não Deve Duplicar o Grupo', async () => {
     return request(app.getHttpServer())
       .post('/grupos/cadastrar')
       .send({
-        nome: 'Root',
-        usuario: 'root@root.com',
-        senha: 'rootroot',
-        foto: ''
-
-      })
-      .expect(400)
+        numeroGrupo: '1',
+        maisInfos: 'Rede Social',
+        turmaId: '1'
+      }),
+      expect(400)
   })
 
-  it('04 - Deve Listar Todos os Grupos', async () => {
+  it('03 - Deve Listar Todos os Grupos', async () => {
     return request(app.getHttpServer())
       .get('/grupos/all')
-      .set('Authorization', `${token}`)
       .send({})
       .expect(200)
   })
 
-  it('05 - Deve Atualizar um Grupo', async () => {
+  it('04 - Deve Atualizar um Grupo', async () => {
     return request(app.getHttpServer())
-      .put('/usuarios/atualizar')
-      .set('Authorization', `${token}`)
+      .put('/grupos/atualizar')
       .send({
-        id: grupoId,
-        nome: 'Jorginho',
-        usuario: 'root@root.com',
-        senha: 'rootroot',
-        foto: ''
+        numeroGrupo: '1',
+        maisInfos: 'E-Commerce',
+        turmaId: '1'
       })
       .expect(200)
       .then(resposta =>{
-        expect("Jorginho").toEqual(resposta.body.nome)
+        expect("E-Commerce").toEqual(resposta.body.maisInfos)
+      });
+  });
+
+  it('05 - Deve Cadastrar Turma', async () => {
+    const resposta = await request(app.getHttpServer())
+      .post('/turmas/cadastrar')
+      .send({
+        descricao: 'Taquara',
+        isAtivo: 'Sim'
+      });
+    expect(201)
+    grupoId = resposta.body.id
+  })
+
+  it('06 - Não Deve Duplicar a Turma', async () => {
+    return request(app.getHttpServer())
+      .post('/turmas/cadastrar')
+      .send({
+        descricao: 'Taquara',
+        isAtivo: 'Sim'
+      }),
+      expect(400)
+  })
+
+  it('07 - Deve Listar Todas as Turmas', async () => {
+    return request(app.getHttpServer())
+      .get('/grupos/all')
+      .send({})
+      .expect(200)
+  })
+
+  it('08 - Deve Atualizar uma Turma', async () => {
+    return request(app.getHttpServer())
+      .put('/turmas/atualizar')
+      .send({
+        descricao: 'Taquara',
+        isAtivo: 'Não'
+      })
+      .expect(200)
+      .then(resposta =>{
+        expect("Não").toEqual(resposta.body.isAtivo)
+      });
+  });
+
+  it('09 - Deve Cadastrar Projeto', async () => {
+    const resposta = await request(app.getHttpServer())
+      .post('/projetos/cadastrar')
+      .send({
+        nomeProjeto: 'Lady Debug',
+        logoProjeto: 'xxx',
+        linkProjeto: 'xxx',
+        pitProjeto: 'xxx',
+        grupoId: '1'
+      });
+    expect(201)
+    grupoId = resposta.body.id
+  })
+
+  it('10 - Não Deve Duplicar o Projeto', async () => {
+    return request(app.getHttpServer())
+      .post('/projetos/cadastrar')
+      .send({
+        nomeProjeto: 'Lady Debug',
+        logoProjeto: 'xxx',
+        linkProjeto: 'xxx',
+        pitProjeto: 'xxx',
+        grupoId: '1'
+      }),
+      expect(400)
+  })
+
+  it('11 - Deve Listar Todos os Projetos', async () => {
+    return request(app.getHttpServer())
+      .get('/projetos/all')
+      .send({})
+      .expect(200)
+  })
+
+  it('12 - Deve Atualizar um Projeto', async () => {
+    return request(app.getHttpServer())
+      .put('/projetos/atualizar')
+      .send({
+        nomeProjeto: 'Lady Debug',
+        logoProjeto: 'xxx',
+        linkProjeto: 'yyy',
+        pitProjeto: 'xxx',
+        grupoId: '1'
+      })
+      .expect(200)
+      .then(resposta =>{
+        expect("yyy").toEqual(resposta.body.linkProjeto)
       });
   });
 

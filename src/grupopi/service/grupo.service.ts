@@ -12,7 +12,7 @@ export class GrupoService {
         private grupoRepository: Repository<Grupo>
     ) { }
 
-    async findByGrupo(numeroGrupo: string): Promise<Grupo| undefined> {
+    async findByNumero(numeroGrupo: string): Promise<Grupo| undefined> {
         return await this.grupoRepository.findOne({
             where: {
                 numeroGrupo: ILike(`%${numeroGrupo}%`)

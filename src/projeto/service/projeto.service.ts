@@ -10,6 +10,14 @@ export class ProjetoService {
         private projetoRepository: Repository<Projeto>
     ) { }
 
+    async findByNome(nomeProjeto: string): Promise<Projeto| undefined> {
+        return await this.projetoRepository.findOne({
+            where: {
+                nomeProjeto: ILike(`%${nomeProjeto}%`)
+            }
+        })
+    }
+
     async findAll(): Promise<Projeto[]> {
         return await this.projetoRepository.find({
             relations: {

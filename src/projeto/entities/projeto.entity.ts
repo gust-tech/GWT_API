@@ -32,9 +32,9 @@ export class Projeto {
     pitProjeto: string 
 
     @IsNotEmpty()
-    @Column({length: 255, nullable:false})
+    @Column({nullable:false})
     @ApiProperty()
-    grupoId: string 
+    grupoId: string
 
     @ApiProperty({ type: () => Turma})
     @ManyToOne(() => Turma, (turma) => turma.projeto, {

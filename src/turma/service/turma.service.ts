@@ -9,6 +9,14 @@ export class TurmaService {
         @InjectRepository(Turma)
         private turmaRepository: Repository<Turma>
     ) { }
+    
+    async findByDescricao(descricao: string): Promise<Turma| undefined> {
+        return await this.turmaRepository.findOne({
+            where: {
+                descricao: ILike(`%${descricao}%`)
+            }
+        })
+    }
 
     async findAll(): Promise<Turma[]> {
         return await this.turmaRepository.find({

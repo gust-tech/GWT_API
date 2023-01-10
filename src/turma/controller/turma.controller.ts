@@ -10,7 +10,7 @@ import { TurmaService } from "../service/turma.service";
 export class TurmaController {
     constructor(private readonly turmaService: TurmaService) { }
 
-    @Get()
+    @Get('/all')
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Turma[]> {
         return this.turmaService.findAll();
@@ -23,13 +23,13 @@ export class TurmaController {
     }
 
 
-    @Post()
+    @Post('/cadastrar')
     @HttpCode(HttpStatus.CREATED)
     create(@Body() turma: Turma): Promise<Turma> {
         return this.turmaService.create(turma)
     }
 
-    @Put()
+    @Put('/atualizar')
     @HttpCode(HttpStatus.OK)
     update(@Body() turma: Turma): Promise<Turma> {
         return this.turmaService.update(turma)
