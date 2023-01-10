@@ -1,5 +1,5 @@
-API em Desenvolvimento...
+API Finalizada.
 <br>
-Última Atualização: 09/01
+Última Atualização: 10/01
 <br>
-Última Versão: 1.4.1
+Última Versão: 1.4.3
