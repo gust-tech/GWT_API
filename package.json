@@ -24,6 +24,7 @@
     "heroku-postbuild": "NODE_ENV=dev npm install --omit --no-shrinkwrap && npm run build"
   },
   "dependencies": {
+    "@jridgewell/sourcemap-codec": "^1.4.14",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
