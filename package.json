@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "@jridgewell/sourcemap-codec": "^1.4.14",
-    "@nestjs/common": "^9.0.0",
+    "@nestjs/common": "^9.2.1",
     "@nestjs/config": "^2.2.0",
-    "@nestjs/core": "^9.0.0",
+    "@nestjs/core": "^9.2.1",
     "@nestjs/jwt": "^10.0.1",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
@@ -45,7 +45,7 @@
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0",
+    "rxjs": "^7.8.0",
     "swagger-ui-express": "^4.5.0",
     "typeorm": "^0.3.10"
   },
