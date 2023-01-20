@@ -34,7 +34,7 @@ export class Projeto {
     @IsNotEmpty()
     @Column({nullable:false})
     @ApiProperty()
-    grupoId: string
+    grupoId: number
 
     @ApiProperty({ type: () => Turma})
     @ManyToOne(() => Turma, (turma) => turma.projeto, {
