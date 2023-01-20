@@ -15,13 +15,11 @@ export class Grupo {
     @ApiProperty()
     numeroGrupo: string
 
-    @IsEmail()
     @Column({length: 255, nullable: false})
     @ApiProperty()
     maisInfos: string 
 
     @IsNotEmpty()
-    @MinLength(8)
     @Column({length: 255, nullable: false})
     @ApiProperty()
     turmaId: string
