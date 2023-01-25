@@ -1,3 +1,4 @@
+import { Turma } from './../../turma/entities/turma.entity';
 import { Projeto } from './../../projeto/entities/projeto.entity';
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
@@ -19,11 +20,10 @@ export class Grupo {
     @ApiProperty()
     maisInfos: string 
 
-    @IsNotEmpty()
-    @Column({length: 255, nullable: false})
-    @ApiProperty()
-    turmaId: string
-
+    @ApiProperty({ type: () => Turma})
+    @OneToMany(() => Turma, (turma) => turma.grupo)
+    turma: Turma[]
+    
     @ApiProperty({ type: () => Projeto})
     @OneToMany(() => Projeto, (projeto) => projeto.grupo)
     projeto: Projeto[]
