@@ -10,7 +10,7 @@ import { ProjetoService } from "../service/projeto.service";
 export class ProjetoController {
     constructor(private readonly projetoService: ProjetoService) { }
 
-    @Get('/all')
+    @Get('')
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Projeto[]> {
         return this.projetoService.findAll();
