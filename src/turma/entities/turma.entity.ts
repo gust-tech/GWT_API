@@ -1,3 +1,4 @@
+import { Grupo } from './../../grupopi/entities/grupo.entity';
 import { Projeto } from './../../projeto/entities/projeto.entity';
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
