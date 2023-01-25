@@ -31,11 +31,6 @@ export class Projeto {
     @ApiProperty()
     pitProjeto: string 
 
-    @IsNotEmpty()
-    @Column({nullable:false})
-    @ApiProperty()
-    grupoId: number
-
     @ApiProperty({ type: () => Turma})
     @ManyToOne(() => Turma, (turma) => turma.projeto, {
         onDelete: "CASCADE"
