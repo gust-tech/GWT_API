@@ -8,7 +8,7 @@ import { GrupoService } from '../service/grupo.service';
 export class GrupoController {
     constructor(private readonly grupoService: GrupoService) { }
 
-    @Get('/all')
+    @Get('')
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Grupo[]> {
         return this.grupoService.findAll();
