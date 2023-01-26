@@ -1,7 +1,8 @@
+import { Grupo } from './../../grupopi/entities/grupo.entity';
 import { Projeto } from './../../projeto/entities/projeto.entity';
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: "tb_turma"})
 export class Turma {
@@ -20,8 +21,14 @@ export class Turma {
     @ApiProperty()
     isAtivo: string 
 
+    @ApiProperty({type: () => Grupo})
+    @ManyToOne(() => Grupo, (grupo) => grupo.turma)
+    grupo: Grupo[]
+    
     @ApiProperty({type: () => Projeto})
-    @OneToMany(() => Projeto, (projeto) => projeto.turma)
+    @ManyToOne(() => Projeto, (projeto) => projeto.turma)
     projeto: Projeto[]
+    
+    
     
 }

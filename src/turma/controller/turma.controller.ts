@@ -10,7 +10,7 @@ import { TurmaService } from "../service/turma.service";
 export class TurmaController {
     constructor(private readonly turmaService: TurmaService) { }
 
-    @Get('/all')
+    @Get('')
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Turma[]> {
         return this.turmaService.findAll();
